@@ -19,7 +19,6 @@ import {
   Copy,
   Check,
   AlertTriangle,
-  Sparkles,
   LogOut,
   FileText,
   X,
@@ -1103,7 +1102,6 @@ ${optimization.selected_interventions.map((item, idx) => `  ${idx + 1}. ${item.t
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b-2 border-black pb-3">
             <div className="flex items-center gap-2.5">
               <span className="bg-[#2546c7] text-white px-2 py-1 border border-black font-black text-xs uppercase tracking-wider flex items-center gap-1.5">
-                <Sparkles className="h-3.5 w-3.5 text-yellow-300" />
                 AI Decision Support Layer
               </span>
               <h2 className="text-base font-black uppercase tracking-tight text-black flex items-center gap-2">
@@ -1210,10 +1208,7 @@ ${optimization.selected_interventions.map((item, idx) => `  ${idx + 1}. ${item.t
                   <span>Computing...</span>
                 </>
               ) : (
-                <>
-                  <Sparkles className="h-3.5 w-3.5 text-yellow-300" />
-                  <span>Ask AI</span>
-                </>
+                <span>Ask AI</span>
               )}
             </button>
           </div>
@@ -1437,7 +1432,7 @@ ${optimization.selected_interventions.map((item, idx) => `  ${idx + 1}. ${item.t
             <div>
               <div className="flex items-center gap-2">
                 <span className="bg-[#0faae6] p-1.5 text-white border border-black rounded-none">
-                  <Sparkles className="h-4 w-4" />
+                  <Cpu className="h-4 w-4" />
                 </span>
                 <h2 className="text-lg font-black tracking-tight text-[#0faae6] uppercase">
                   AI Cyber Investment Optimizer & Capital Allocation
