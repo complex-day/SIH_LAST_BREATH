@@ -112,6 +112,7 @@ uvicorn main:app --reload --host 0.0.0.0 --port 8000
 * Threat Scenarios: `GET /api/scenarios`
 * AI Capital Allocation: `POST /api/optimize-investment`
 * Scenario Stress Test: `POST /api/simulate-scenario`
+* AI Decision Support & Natural Language Query: `POST /api/natural-language-query`
 
 ---
 
@@ -221,9 +222,9 @@ flowchart TD
   * **PR.DS-01:** *Data-at-rest and data-in-transit are protected to minimize business interruption.*
   * **PR.IR-01:** *Operational resilience architectures suppress service outages and failovers.*
 
-#### 7. DPDP Act & Statutory Regulatory Governance
-* **The Problem:** Under India's Digital Personal Data Protection (DPDP) Act 2023, penalties for data breaches reach statutory ceilings of up to **₹250 Crore per incident**, alongside RBI Cyber Security Framework and ISO 27001 audit mandates.
-* **CyberQuant Solution:** Automated loss magnitude bounding explicitly incorporates regulatory penalty distributions and compliance coverage metrics (**92% NIST CSF 2.0, 88% RBI Framework, 95% ISO 27001**), insulating the enterprise balance sheet against regulatory enforcement.
+#### 7. DPDP Act & Statutory Regulatory Governance (NIST, SEBI, RBI, CIS, ISO)
+* **The Problem:** Under India's Digital Personal Data Protection (DPDP) Act 2023, penalties for data breaches reach statutory ceilings of up to **₹250 Crore per incident**, alongside RBI Cyber Security Framework, SEBI Cyber Resilience Framework, CIS Controls v8.1, and ISO/IEC 27001 audit mandates.
+* **CyberQuant Solution:** Automated loss magnitude bounding explicitly incorporates regulatory penalty distributions and multi-framework compliance coverage (**92% NIST CSF 2.0, 91% SEBI CCRF, 88% RBI Framework, 89% CIS Controls v8.1, 95% ISO 27001, DPDP Act 2023 Compliant**), insulating the enterprise balance sheet against regulatory enforcement.
 * **NIST CSF 2.0 Mapping:**
   * **GV.PO-01:** *Cybersecurity organizational policies align with statutory, regulatory, and legal requirements.*
   * **GV.PO-02:** *Compliance with regulatory obligations is continuously verified through quantitative evidence.*

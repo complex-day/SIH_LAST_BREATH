@@ -50,14 +50,29 @@ interface DashboardMetrics {
   compliance_scores: {
     iso_27001: number;
     nist_csf: number;
-    pci_dss: number;
-    soc2: number;
+    pci_dss?: number;
+    soc2?: number;
+    sebi_ccrf?: number;
+    cis_controls?: number;
+    rbi_csf?: number;
+    dpdp_act?: number;
   };
   rosi_percentage: number;
   total_monitored_assets: number;
   critical_vulnerabilities: number;
   currency: string;
   currency_symbol: string;
+}
+
+interface NLQueryResponse {
+  status: string;
+  query: string;
+  category: string;
+  executive_summary: string;
+  metrics: Record<string, string>;
+  contributing_factors: string[];
+  recommended_action: string;
+  framework_alignment: string;
 }
 
 interface AssetExposure {
@@ -115,8 +130,11 @@ interface ImpactSummary {
   periodic_audit_benchmark: string;
   compliance_coverage: {
     NIST_CSF_2_0: string;
+    SEBI_Cyber_Resilience: string;
     RBI_Cyber_Framework: string;
+    CIS_Controls_v8: string;
     ISO_27001: string;
+    DPDP_Act_2023: string;
   };
   projected_downtime_reduction: string;
   active_frameworks_count: number;
@@ -165,10 +183,12 @@ const FALLBACK_DASHBOARD: DashboardMetrics = {
   overall_risk_score: 74.2,
   risk_grade: "HIGH RISK",
   compliance_scores: {
-    iso_27001: 88,
-    nist_csf: 74,
-    pci_dss: 91,
-    soc2: 82
+    iso_27001: 95,
+    nist_csf: 92,
+    sebi_ccrf: 91,
+    rbi_csf: 88,
+    cis_controls: 89,
+    dpdp_act: 94
   },
   rosi_percentage: 240,
   total_monitored_assets: 10,
@@ -346,12 +366,94 @@ const FALLBACK_IMPACT_SUMMARY: ImpactSummary = {
   periodic_audit_benchmark: "90 days",
   compliance_coverage: {
     NIST_CSF_2_0: "92%",
+    SEBI_Cyber_Resilience: "91%",
     RBI_Cyber_Framework: "88%",
-    ISO_27001: "95%"
+    CIS_Controls_v8: "89%",
+    ISO_27001: "95%",
+    DPDP_Act_2023: "Compliant"
   },
   projected_downtime_reduction: "64%",
-  active_frameworks_count: 3,
+  active_frameworks_count: 6,
   calculation_basis: "Empirical reduction of misallocated remediation spend on isolated high-CVSS systems redirected to high-exposure revenue infrastructure."
+};
+
+const FALLBACK_NL_RESPONSES: Record<string, NLQueryResponse> = {
+  highest_risk: {
+    status: "success",
+    query: "What is our highest financial cyber risk today?",
+    category: "Risk Driver Identification",
+    executive_summary: "Your single highest financial cyber risk today is 'Active Directory Domain Controller' with an Expected Annual Loss (EAL) of ₹1.48 Cr and 95% Value at Risk (VaR) of ₹2.25 Cr. While legacy CVSS treats all vulnerabilities above 8.5 equally, its ₹1.50 Cr business valuation and critical forest blast radius make it your primary balance-sheet exposure.",
+    metrics: {
+      "Top Asset": "Active Directory DC",
+      "Asset EAL Exposure": "₹1.48 Crore",
+      "Portfolio EAL Share": "30.5%",
+      "Technical CVSS": "8.9 (Critical)"
+    },
+    contributing_factors": [
+      "Active Directory Domain Controller: High threat event frequency (7.2/yr) and enterprise-wide identity blast radius.",
+      "Customer Payment Gateway: Directly drives ₹98.5L in transactional downtime exposure.",
+      "Core Banking Cloud DB: Carries ₹1.39 Cr EAL with direct RBI and statutory regulatory exposure."
+    ],
+    recommended_action: "Deploy Zero-Trust Tiering & Privileged Access Management (PAM). Expected risk suppression: ₹96.3 Lakhs (65% reduction).",
+    framework_alignment: "NIST CSF 2.0 (ID.AM-05, ID.RA-01) & SEBI Cyber Resilience Framework (Risk Identification)"
+  },
+  vulnerabilities: {
+    status: "success",
+    query: "Which vulnerabilities contribute most to our expected losses?",
+    category: "Vulnerability Contribution Analysis",
+    executive_summary: "Expected losses are disproportionately driven by public-facing transactional APIs and identity systems rather than raw CVSS severity. Specifically, CVE-2024-38199 (API deserialization on Payment Gateway) and Kerberoasting in Active Directory drive over 59.2% (₹2.87 Cr) of total enterprise EAL.",
+    metrics: {
+      "Top Vulnerability": "CVE-2024-38199 (Payment API)",
+      "Vulnerability Loss": "₹98.5 Lakhs EAL",
+      "Identity Threat": "Kerberoasting / AD Elevation",
+      "Identity Loss": "₹96.3 Lakhs EAL"
+    },
+    contributing_factors": [
+      "CVE-2024-38199 on Customer Payment Gateway: CVSS 7.1 creates ₹98.5L EAL due to high direct transactional exposure.",
+      "Kerberoasting on Domain Controller: CVSS 8.9 threatens entire enterprise forest with ₹1.48 Cr tail risk.",
+      "Unencrypted backup volumes on Cloud DB: Drives 24% of DPDP Act regulatory exposure."
+    ],
+    recommended_action: "Prioritize patching CVE-2024-38199 and enforce Tier-0 Active Directory PAM. Avoid wasting ₹15L remediating isolated staging nodes (CVE-2024-38077).",
+    framework_alignment: "CIS Controls v8.1 (Control 7 - Vulnerability Management) & RBI Cyber Security Framework"
+  },
+  mfa: {
+    status: "success",
+    query: "What happens if MFA is implemented across all privileged accounts?",
+    category: "Control Simulation (What-If)",
+    executive_summary: "Enforcing FIDO2 phishing-resistant MFA across all privileged accounts suppresses enterprise Expected Annual Loss by ₹1.15 Crore (23.6% reduction in portfolio risk). At an implementation cost of ₹6.5 Lakhs, this initiative yields an extraordinary 380% Return on Security Investment (ROSI).",
+    metrics: {
+      "Implementation Cost": "₹6.5 Lakhs",
+      "Financial Loss Reduction": "₹1.15 Cr EAL Saved",
+      "Threat Frequency Suppression": "-55% Credential Attacks",
+      "Projected ROSI": "380.0%"
+    },
+    contributing_factors": [
+      "Neutralizes 98.2% of automated credential stuffing and phishing attacks against Tier-1 admins.",
+      "Directly protects Active Directory Domain Controller and Core Banking Cloud DB.",
+      "Reduces probability of domain takeover by 55%."
+    ],
+    recommended_action: "Execute immediate 7-day deployment of Hardware/FIDO2 MFA for all administrative and executive roles.",
+    framework_alignment: "NIST CSF 2.0 (PR.AC-07) & SEBI Cyber Resilience Framework (Access Control Section 4.2)"
+  },
+  delay: {
+    status: "success",
+    query: "How will delaying remediation by 30 days affect our financial exposure?",
+    category: "Remediation Velocity & Delay Impact",
+    executive_summary: "Delaying remediation by 30 days incurs an estimated ₹40.5 Lakhs in added unhedged financial exposure. As public exploit kits and CISA KEV listings mature, threat event frequencies compound at 1.35x, elevating 95% Value at Risk from ₹8.94 Cr to ₹10.25 Cr.",
+    metrics: {
+      "Added 30-Day Exposure": "₹40.5 Lakhs",
+      "Daily Unhedged Burn Rate": "₹133.2K / day",
+      "Exploit Compounding Rate": "+35% Threat Ramp",
+      "Regulatory Penalty Risk": "₹1.25 Cr (DPDP Act Non-Compliance)"
+    },
+    contributing_factors": [
+      "Vulnerabilities in Customer Payment Gateway and Active Directory are actively weaponized in the wild.",
+      "Delayed patching converts low-cost preventative maintenance into emergency incident response costs.",
+      "Breaches after 30-day disclosure windows trigger mandatory statutory penalties under DPDP Act 2023."
+    ],
+    recommended_action: "Do not defer. Trigger the automated ₹73.5L AI Knapsack optimization bundle to lock in 70.8% immediate loss suppression.",
+    framework_alignment: "ISO/IEC 27001 (A.12.6.1 Technical Vulnerability Management) & RBI Cyber Security Framework"
+  }
 };
 
 const FALLBACK_PRIORITIZATION_MATRIX: PrioritizationMatrixData = {
@@ -557,6 +659,47 @@ export default function CyberQuantDashboard() {
   const [isBoardModalOpen, setIsBoardModalOpen] = useState<boolean>(false);
   const [copiedBrief, setCopiedBrief] = useState<boolean>(false);
 
+  // Natural Language AI Decision Support
+  const [nlQuery, setNlQuery] = useState<string>("What is our highest financial cyber risk today?");
+  const [nlResponse, setNlResponse] = useState<NLQueryResponse | null>(FALLBACK_NL_RESPONSES.highest_risk);
+  const [isQuerying, setIsQuerying] = useState<boolean>(false);
+
+  const handleNaturalLanguageQuery = async (queryText?: string) => {
+    const textToQuery = queryText || nlQuery;
+    if (!textToQuery.trim()) return;
+    setIsQuerying(true);
+
+    try {
+      const res = await fetch(`${API_BASE_URL}/api/natural-language-query`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ query: textToQuery })
+      });
+      if (res.ok) {
+        const data: NLQueryResponse = await res.json();
+        setNlResponse(data);
+        setIsQuerying(false);
+        return;
+      }
+    } catch {
+      // Offline fallback
+    }
+
+    const q = textToQuery.toLowerCase();
+    if (q.includes("highest") || q.includes("risk") || q.includes("today")) {
+      setNlResponse(FALLBACK_NL_RESPONSES.highest_risk);
+    } else if (q.includes("vulnerabilit") || q.includes("cve") || q.includes("loss")) {
+      setNlResponse(FALLBACK_NL_RESPONSES.vulnerabilities);
+    } else if (q.includes("mfa") || q.includes("privileged") || q.includes("account")) {
+      setNlResponse(FALLBACK_NL_RESPONSES.mfa);
+    } else if (q.includes("delay") || q.includes("30") || q.includes("remediation")) {
+      setNlResponse(FALLBACK_NL_RESPONSES.delay);
+    } else {
+      setNlResponse(FALLBACK_NL_RESPONSES.highest_risk);
+    }
+    setIsQuerying(false);
+  };
+
 
   useEffect(() => {
     const token = localStorage.getItem("auth_token");
@@ -699,7 +842,7 @@ export default function CyberQuantDashboard() {
 
   const boardBriefMarkdown = `# 🏛️ CYBERQUANT AI — EXECUTIVE BOARD BRIEF & DECISION MEMO
 **Classification:** STRICTLY CONFIDENTIAL // C-SUITE & BOARD DISTRIBUTION
-**Framework Alignment:** NIST CSF 2.0 (Govern & Identify) | FAIR Model v2.0 | RBI Cyber Security Framework
+**Framework Alignment:** NIST CSF 2.0 (Govern & Identify) | FAIR Model v2.0 | SEBI CCRF | RBI Cyber Security Framework | CIS Controls v8.1 | ISO/IEC 27001
 **Continuous Monitoring Telemetry:** Detection Latency: 14 Minutes (vs. 90-Day Industry Audit Lag)
 
 ---
@@ -791,13 +934,22 @@ ${optimization.selected_interventions.map((item, idx) => `  ${idx + 1}. ${item.t
               <span className="uppercase">{isLiveApi ? "1,000 Live Trials" : "Demo Engine"}</span>
             </div>
 
-            {/* Stark Cobalt & Green Compliance Badges */}
-            <div className="hidden lg:flex items-center gap-2 text-xs font-bold">
-              <span className="rounded-none border-2 border-green-600 bg-white px-2.5 py-1 text-green-700">
-                ISO: 88%
+            {/* Regulatory Framework Badges */}
+            <div className="hidden xl:flex items-center gap-1.5 text-[11px] font-bold">
+              <span className="rounded-none border-2 border-black bg-white px-2 py-0.5 text-green-700" title="ISO/IEC 27001 Compliance">
+                ISO: 95%
               </span>
-              <span className="rounded-none border-2 border-[#2546c7] bg-white px-2.5 py-1 text-[#2546c7]">
-                NIST: 74%
+              <span className="rounded-none border-2 border-black bg-white px-2 py-0.5 text-[#0faae6]" title="NIST CSF 2.0 Alignment">
+                NIST: 92%
+              </span>
+              <span className="rounded-none border-2 border-black bg-white px-2 py-0.5 text-purple-700" title="SEBI Cyber Resilience Framework">
+                SEBI: 91%
+              </span>
+              <span className="rounded-none border-2 border-black bg-white px-2 py-0.5 text-[#2546c7]" title="RBI Cyber Security Framework">
+                RBI: 88%
+              </span>
+              <span className="rounded-none border-2 border-black bg-white px-2 py-0.5 text-blue-600" title="CIS Controls v8.1">
+                CIS: 89%
               </span>
             </div>
 
@@ -899,26 +1051,28 @@ ${optimization.selected_interventions.map((item, idx) => `  ${idx + 1}. ${item.t
               </div>
             </div>
 
-            {/* Badge 3: NIST CSF 2.0 Alignment */}
+            {/* Badge 3: Regulatory Compliance Alignment */}
             <div className="rounded-none border-2 border-black bg-white p-4 flex flex-col justify-between">
               <div className="flex items-center justify-between">
                 <span className="text-[10px] font-black uppercase tracking-widest text-black bg-[#ebd6d1] px-1.5 py-0.5 border border-black">
-                  NIST CSF 2.0 Alignment
+                  Statutory & Framework Coverage
                 </span>
                 <ShieldCheck className="h-4 w-4 text-green-700" />
               </div>
               <div className="my-2">
                 <div className="text-2xl font-black text-green-700 tracking-tight">
-                  {impactSummary.compliance_coverage.NIST_CSF_2_0} Active
+                  {impactSummary.active_frameworks_count} Frameworks
                 </div>
                 <p className="text-[11px] font-bold text-gray-700 mt-0.5 uppercase">
-                  Continuous Risk Review (GV.RM)
+                  NIST 92% • SEBI 91% • RBI 88%
                 </p>
               </div>
               <div className="text-[10px] font-black uppercase text-gray-800 bg-[#ebd6d1]/60 px-1.5 py-0.5 border-t border-black flex justify-between">
-                <span>RBI: {impactSummary.compliance_coverage.RBI_Cyber_Framework}</span>
+                <span>CIS: {impactSummary.compliance_coverage.CIS_Controls_v8}</span>
                 <span>•</span>
                 <span>ISO: {impactSummary.compliance_coverage.ISO_27001}</span>
+                <span>•</span>
+                <span>DPDP: {impactSummary.compliance_coverage.DPDP_Act_2023}</span>
               </div>
             </div>
 
@@ -943,6 +1097,203 @@ ${optimization.selected_interventions.map((item, idx) => `  ${idx + 1}. ${item.t
               </div>
             </div>
           </div>
+        </section>
+
+        {/* AI Decision Support Layer: Natural Language Query Interface */}
+        <section className="rounded-none border-4 border-black bg-white p-5 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b-2 border-black pb-3">
+            <div className="flex items-center gap-2.5">
+              <span className="bg-[#2546c7] text-white px-2 py-1 border border-black font-black text-xs uppercase tracking-wider flex items-center gap-1.5">
+                <Sparkles className="h-3.5 w-3.5 text-yellow-300" />
+                AI Decision Support Layer
+              </span>
+              <h2 className="text-base font-black uppercase tracking-tight text-black flex items-center gap-2">
+                <span>Executive Natural Language Query Interface</span>
+                <span className="text-[11px] font-bold text-purple-700 bg-purple-50 border border-purple-600 px-2 py-0.5">
+                  CISO & Board Co-Pilot
+                </span>
+              </h2>
+            </div>
+            <div className="text-xs font-bold text-gray-700 uppercase tracking-wider">
+              Translates Complex Telemetry into ₹ Probabilistic Financial Loss
+            </div>
+          </div>
+
+          {/* Quick-Prompt Interactive Chips */}
+          <div className="mt-4">
+            <div className="text-xs font-black uppercase text-gray-700 tracking-wider mb-2 flex items-center gap-1.5">
+              <span>Interactive Decision Queries:</span>
+              <span className="text-[10px] font-bold text-[#0faae6] lowercase">(click to ask the AI engine)</span>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+              <button
+                type="button"
+                onClick={() => {
+                  setNlQuery("What is our highest financial cyber risk today?");
+                  handleNaturalLanguageQuery("What is our highest financial cyber risk today?");
+                }}
+                className={`text-left p-2.5 text-xs font-bold border-2 border-black transition flex items-center justify-between ${
+                  nlQuery === "What is our highest financial cyber risk today?"
+                    ? "bg-[#0faae6] text-white"
+                    : "bg-[#ebd6d1]/40 text-black hover:bg-[#ebd6d1]"
+                }`}
+              >
+                <span>🎯 What is our highest financial cyber risk today?</span>
+                <ArrowRight className="h-3.5 w-3.5 ml-2 shrink-0" />
+              </button>
+
+              <button
+                type="button"
+                onClick={() => {
+                  setNlQuery("Which vulnerabilities contribute most to our expected losses?");
+                  handleNaturalLanguageQuery("Which vulnerabilities contribute most to our expected losses?");
+                }}
+                className={`text-left p-2.5 text-xs font-bold border-2 border-black transition flex items-center justify-between ${
+                  nlQuery === "Which vulnerabilities contribute most to our expected losses?"
+                    ? "bg-[#0faae6] text-white"
+                    : "bg-[#ebd6d1]/40 text-black hover:bg-[#ebd6d1]"
+                }`}
+              >
+                <span>⚡ Which vulnerabilities contribute most to our expected losses?</span>
+                <ArrowRight className="h-3.5 w-3.5 ml-2 shrink-0" />
+              </button>
+
+              <button
+                type="button"
+                onClick={() => {
+                  setNlQuery("What happens if MFA is implemented across all privileged accounts?");
+                  handleNaturalLanguageQuery("What happens if MFA is implemented across all privileged accounts?");
+                }}
+                className={`text-left p-2.5 text-xs font-bold border-2 border-black transition flex items-center justify-between ${
+                  nlQuery === "What happens if MFA is implemented across all privileged accounts?"
+                    ? "bg-[#0faae6] text-white"
+                    : "bg-[#ebd6d1]/40 text-black hover:bg-[#ebd6d1]"
+                }`}
+              >
+                <span>🛡️ What happens if MFA is implemented across all privileged accounts?</span>
+                <ArrowRight className="h-3.5 w-3.5 ml-2 shrink-0" />
+              </button>
+
+              <button
+                type="button"
+                onClick={() => {
+                  setNlQuery("How will delaying remediation by 30 days affect our financial exposure?");
+                  handleNaturalLanguageQuery("How will delaying remediation by 30 days affect our financial exposure?");
+                }}
+                className={`text-left p-2.5 text-xs font-bold border-2 border-black transition flex items-center justify-between ${
+                  nlQuery === "How will delaying remediation by 30 days affect our financial exposure?"
+                    ? "bg-[#0faae6] text-white"
+                    : "bg-[#ebd6d1]/40 text-black hover:bg-[#ebd6d1]"
+                }`}
+              >
+                <span>⏱️ How will delaying remediation by 30 days affect our financial exposure?</span>
+                <ArrowRight className="h-3.5 w-3.5 ml-2 shrink-0" />
+              </button>
+            </div>
+          </div>
+
+          {/* Search/Query Bar */}
+          <div className="mt-3 flex gap-2">
+            <input
+              type="text"
+              value={nlQuery}
+              onChange={(e) => setNlQuery(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") handleNaturalLanguageQuery();
+              }}
+              placeholder="Ask CyberQuant AI any risk or capital question (e.g., What is our ransomware exposure?)..."
+              className="flex-1 rounded-none border-2 border-black p-2.5 text-xs font-bold text-black focus:outline-none focus:ring-2 focus:ring-[#0faae6]"
+            />
+            <button
+              onClick={() => handleNaturalLanguageQuery()}
+              disabled={isQuerying}
+              className="rounded-none bg-black px-5 py-2.5 text-xs font-black text-white uppercase tracking-wider hover:bg-gray-800 transition disabled:opacity-50 flex items-center gap-1.5"
+            >
+              {isQuerying ? (
+                <>
+                  <RefreshCw className="h-3.5 w-3.5 animate-spin" />
+                  <span>Computing...</span>
+                </>
+              ) : (
+                <>
+                  <Sparkles className="h-3.5 w-3.5 text-yellow-300" />
+                  <span>Ask AI</span>
+                </>
+              )}
+            </button>
+          </div>
+
+          {/* AI Response Display Card */}
+          {nlResponse && (
+            <div className="mt-4 rounded-none border-2 border-black bg-[#ebd6d1]/30 p-4">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-black pb-2 mb-3">
+                <div className="flex items-center gap-2">
+                  <span className="text-[10px] font-black uppercase tracking-wider bg-black text-white px-2 py-0.5">
+                    {nlResponse.category}
+                  </span>
+                  <span className="text-xs font-bold text-gray-800 italic">
+                    &quot;{nlResponse.query}&quot;
+                  </span>
+                </div>
+                <span className="text-[10px] font-black uppercase text-purple-900 bg-purple-100 border border-purple-800 px-2 py-0.5">
+                  {nlResponse.framework_alignment}
+                </span>
+              </div>
+
+              {/* Executive Summary */}
+              <div className="rounded-none border border-black bg-white p-3 mb-3">
+                <div className="text-[11px] font-black uppercase tracking-wide text-gray-500 mb-1">
+                  Executive Decision Summary:
+                </div>
+                <p className="text-sm font-bold text-gray-900 leading-relaxed">
+                  {nlResponse.executive_summary}
+                </p>
+              </div>
+
+              {/* 4 Metric Callout Cards */}
+              <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-3">
+                {Object.entries(nlResponse.metrics).map(([key, val], idx) => (
+                  <div key={idx} className="rounded-none border border-black bg-white p-2.5">
+                    <div className="text-[10px] font-bold text-gray-600 uppercase">{key}</div>
+                    <div className="text-base font-black text-[#0faae6] mt-0.5">{val}</div>
+                  </div>
+                ))}
+              </div>
+
+              {/* Contributing Factors & Strategic Recommendation */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                <div className="rounded-none border border-black bg-white p-3">
+                  <div className="text-[11px] font-black uppercase tracking-wider text-black mb-1.5 flex items-center gap-1">
+                    <Layers className="h-3.5 w-3.5 text-[#2546c7]" />
+                    <span>Key Risk Contributors:</span>
+                  </div>
+                  <ul className="space-y-1.5 text-xs font-semibold text-gray-800">
+                    {nlResponse.contributing_factors.map((factor, i) => (
+                      <li key={i} className="flex items-start gap-1.5">
+                        <span className="text-[#0faae6] font-black">•</span>
+                        <span>{factor}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                <div className="rounded-none border border-black bg-[#2546c7] text-white p-3 flex flex-col justify-between">
+                  <div>
+                    <div className="text-[11px] font-black uppercase tracking-wider text-yellow-300 mb-1.5 flex items-center gap-1">
+                      <Zap className="h-3.5 w-3.5 text-yellow-300" />
+                      <span>Recommended CISO / Board Action:</span>
+                    </div>
+                    <p className="text-xs font-bold leading-relaxed text-white">
+                      {nlResponse.recommended_action}
+                    </p>
+                  </div>
+                  <div className="mt-2 text-[10px] font-black uppercase tracking-wider bg-black/40 text-yellow-200 px-2 py-1 border border-white/20">
+                    ROI-Optimized Decision Policy
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
         </section>
 
         {/* Critical Risk & Alert: Intense Cobalt Blue Banner with Pure White Text */}

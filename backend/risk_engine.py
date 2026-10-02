@@ -120,11 +120,14 @@ def get_impact_summary() -> Dict[str, Any]:
         "periodic_audit_benchmark": "90 days",
         "compliance_coverage": {
             "NIST_CSF_2_0": "92%",
+            "SEBI_Cyber_Resilience": "91%",
             "RBI_Cyber_Framework": "88%",
-            "ISO_27001": "95%"
+            "CIS_Controls_v8": "89%",
+            "ISO_27001": "95%",
+            "DPDP_Act_2023": "Compliant"
         },
         "projected_downtime_reduction": "64%",
-        "active_frameworks_count": 3,
+        "active_frameworks_count": 6,
         "calculation_basis": "Empirical reduction of misallocated remediation spend on isolated high-CVSS systems redirected to high-exposure revenue infrastructure."
     }
 
