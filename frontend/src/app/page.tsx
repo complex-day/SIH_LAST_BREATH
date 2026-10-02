@@ -389,7 +389,7 @@ const FALLBACK_NL_RESPONSES: Record<string, NLQueryResponse> = {
       "Portfolio EAL Share": "30.5%",
       "Technical CVSS": "8.9 (Critical)"
     },
-    contributing_factors": [
+    "contributing_factors": [
       "Active Directory Domain Controller: High threat event frequency (7.2/yr) and enterprise-wide identity blast radius.",
       "Customer Payment Gateway: Directly drives ₹98.5L in transactional downtime exposure.",
       "Core Banking Cloud DB: Carries ₹1.39 Cr EAL with direct RBI and statutory regulatory exposure."
@@ -408,7 +408,7 @@ const FALLBACK_NL_RESPONSES: Record<string, NLQueryResponse> = {
       "Identity Threat": "Kerberoasting / AD Elevation",
       "Identity Loss": "₹96.3 Lakhs EAL"
     },
-    contributing_factors": [
+    "contributing_factors": [
       "CVE-2024-38199 on Customer Payment Gateway: CVSS 7.1 creates ₹98.5L EAL due to high direct transactional exposure.",
       "Kerberoasting on Domain Controller: CVSS 8.9 threatens entire enterprise forest with ₹1.48 Cr tail risk.",
       "Unencrypted backup volumes on Cloud DB: Drives 24% of DPDP Act regulatory exposure."
@@ -427,7 +427,7 @@ const FALLBACK_NL_RESPONSES: Record<string, NLQueryResponse> = {
       "Threat Frequency Suppression": "-55% Credential Attacks",
       "Projected ROSI": "380.0%"
     },
-    contributing_factors": [
+    "contributing_factors": [
       "Neutralizes 98.2% of automated credential stuffing and phishing attacks against Tier-1 admins.",
       "Directly protects Active Directory Domain Controller and Core Banking Cloud DB.",
       "Reduces probability of domain takeover by 55%."
@@ -446,7 +446,7 @@ const FALLBACK_NL_RESPONSES: Record<string, NLQueryResponse> = {
       "Exploit Compounding Rate": "+35% Threat Ramp",
       "Regulatory Penalty Risk": "₹1.25 Cr (DPDP Act Non-Compliance)"
     },
-    contributing_factors": [
+    "contributing_factors": [
       "Vulnerabilities in Customer Payment Gateway and Active Directory are actively weaponized in the wild.",
       "Delayed patching converts low-cost preventative maintenance into emergency incident response costs.",
       "Breaches after 30-day disclosure windows trigger mandatory statutory penalties under DPDP Act 2023."
@@ -927,9 +927,8 @@ ${optimization.selected_interventions.map((item, idx) => `  ${idx + 1}. ${item.t
             {/* Live API Telemetry Badge */}
             <div className="hidden sm:flex items-center gap-2 rounded-none border-2 border-black bg-white px-3 py-1 text-xs font-bold text-black">
               <span
-                className={`inline-block h-2.5 w-2.5 rounded-none ${
-                  isLiveApi ? "bg-[#0faae6] animate-pulse" : "bg-[#2546c7]"
-                }`}
+                className={`inline-block h-2.5 w-2.5 rounded-none ${isLiveApi ? "bg-[#0faae6] animate-pulse" : "bg-[#2546c7]"
+                  }`}
               />
               <span className="uppercase">{isLiveApi ? "1,000 Live Trials" : "Demo Engine"}</span>
             </div>
@@ -1132,11 +1131,10 @@ ${optimization.selected_interventions.map((item, idx) => `  ${idx + 1}. ${item.t
                   setNlQuery("What is our highest financial cyber risk today?");
                   handleNaturalLanguageQuery("What is our highest financial cyber risk today?");
                 }}
-                className={`text-left p-2.5 text-xs font-bold border-2 border-black transition flex items-center justify-between ${
-                  nlQuery === "What is our highest financial cyber risk today?"
+                className={`text-left p-2.5 text-xs font-bold border-2 border-black transition flex items-center justify-between ${nlQuery === "What is our highest financial cyber risk today?"
                     ? "bg-[#0faae6] text-white"
                     : "bg-[#ebd6d1]/40 text-black hover:bg-[#ebd6d1]"
-                }`}
+                  }`}
               >
                 <span>🎯 What is our highest financial cyber risk today?</span>
                 <ArrowRight className="h-3.5 w-3.5 ml-2 shrink-0" />
@@ -1148,11 +1146,10 @@ ${optimization.selected_interventions.map((item, idx) => `  ${idx + 1}. ${item.t
                   setNlQuery("Which vulnerabilities contribute most to our expected losses?");
                   handleNaturalLanguageQuery("Which vulnerabilities contribute most to our expected losses?");
                 }}
-                className={`text-left p-2.5 text-xs font-bold border-2 border-black transition flex items-center justify-between ${
-                  nlQuery === "Which vulnerabilities contribute most to our expected losses?"
+                className={`text-left p-2.5 text-xs font-bold border-2 border-black transition flex items-center justify-between ${nlQuery === "Which vulnerabilities contribute most to our expected losses?"
                     ? "bg-[#0faae6] text-white"
                     : "bg-[#ebd6d1]/40 text-black hover:bg-[#ebd6d1]"
-                }`}
+                  }`}
               >
                 <span>⚡ Which vulnerabilities contribute most to our expected losses?</span>
                 <ArrowRight className="h-3.5 w-3.5 ml-2 shrink-0" />
@@ -1164,11 +1161,10 @@ ${optimization.selected_interventions.map((item, idx) => `  ${idx + 1}. ${item.t
                   setNlQuery("What happens if MFA is implemented across all privileged accounts?");
                   handleNaturalLanguageQuery("What happens if MFA is implemented across all privileged accounts?");
                 }}
-                className={`text-left p-2.5 text-xs font-bold border-2 border-black transition flex items-center justify-between ${
-                  nlQuery === "What happens if MFA is implemented across all privileged accounts?"
+                className={`text-left p-2.5 text-xs font-bold border-2 border-black transition flex items-center justify-between ${nlQuery === "What happens if MFA is implemented across all privileged accounts?"
                     ? "bg-[#0faae6] text-white"
                     : "bg-[#ebd6d1]/40 text-black hover:bg-[#ebd6d1]"
-                }`}
+                  }`}
               >
                 <span>🛡️ What happens if MFA is implemented across all privileged accounts?</span>
                 <ArrowRight className="h-3.5 w-3.5 ml-2 shrink-0" />
@@ -1180,11 +1176,10 @@ ${optimization.selected_interventions.map((item, idx) => `  ${idx + 1}. ${item.t
                   setNlQuery("How will delaying remediation by 30 days affect our financial exposure?");
                   handleNaturalLanguageQuery("How will delaying remediation by 30 days affect our financial exposure?");
                 }}
-                className={`text-left p-2.5 text-xs font-bold border-2 border-black transition flex items-center justify-between ${
-                  nlQuery === "How will delaying remediation by 30 days affect our financial exposure?"
+                className={`text-left p-2.5 text-xs font-bold border-2 border-black transition flex items-center justify-between ${nlQuery === "How will delaying remediation by 30 days affect our financial exposure?"
                     ? "bg-[#0faae6] text-white"
                     : "bg-[#ebd6d1]/40 text-black hover:bg-[#ebd6d1]"
-                }`}
+                  }`}
               >
                 <span>⏱️ How will delaying remediation by 30 days affect our financial exposure?</span>
                 <ArrowRight className="h-3.5 w-3.5 ml-2 shrink-0" />
@@ -1312,10 +1307,10 @@ ${optimization.selected_interventions.map((item, idx) => `  ${idx + 1}. ${item.t
                   {selectedScenario === "ransomware"
                     ? "Targeted Ransomware Extortion Wave (+120% Threat Frequency)"
                     : selectedScenario === "cloud_breach"
-                    ? "Cloud Supply-Chain & Storage Exfiltration (+90% Attack Rate)"
-                    : selectedScenario === "fintech_ddos_api"
-                    ? "Payment Gateway API Disruption & Account Takeover"
-                    : "Standard Enterprise Threat Baseline (Operational Telemetry)"}
+                      ? "Cloud Supply-Chain & Storage Exfiltration (+90% Attack Rate)"
+                      : selectedScenario === "fintech_ddos_api"
+                        ? "Payment Gateway API Disruption & Account Takeover"
+                        : "Standard Enterprise Threat Baseline (Operational Telemetry)"}
                 </div>
               </div>
             </div>
@@ -1331,11 +1326,10 @@ ${optimization.selected_interventions.map((item, idx) => `  ${idx + 1}. ${item.t
                 <button
                   key={sc.id}
                   onClick={() => handleScenarioChange(sc.id)}
-                  className={`rounded-none px-3 py-1.5 text-xs font-black uppercase tracking-wider transition ${
-                    selectedScenario === sc.id
+                  className={`rounded-none px-3 py-1.5 text-xs font-black uppercase tracking-wider transition ${selectedScenario === sc.id
                       ? "bg-white text-black border-2 border-black"
                       : "bg-black/30 text-white border border-white hover:bg-black/50"
-                  }`}
+                    }`}
                 >
                   {sc.label}
                 </button>
@@ -1526,11 +1520,10 @@ ${optimization.selected_interventions.map((item, idx) => `  ${idx + 1}. ${item.t
                       setBudgetSlider(preset.val);
                       runAiOptimization(preset.val);
                     }}
-                    className={`flex-1 py-1.5 text-xs font-black uppercase rounded-none border-2 border-black transition ${
-                      budgetSlider === preset.val
+                    className={`flex-1 py-1.5 text-xs font-black uppercase rounded-none border-2 border-black transition ${budgetSlider === preset.val
                         ? "bg-[#0faae6] text-white"
                         : "bg-white text-black hover:bg-gray-100"
-                    }`}
+                      }`}
                   >
                     {preset.label}
                   </button>
@@ -1746,11 +1739,10 @@ ${optimization.selected_interventions.map((item, idx) => `  ${idx + 1}. ${item.t
                     <button
                       key={item.investment}
                       onClick={() => setActiveInvestmentIndex(idx)}
-                      className={`w-full flex items-center justify-between px-2.5 py-1.5 rounded-none border-2 text-left font-bold uppercase transition ${
-                        activeInvestmentIndex === idx
+                      className={`w-full flex items-center justify-between px-2.5 py-1.5 rounded-none border-2 text-left font-bold uppercase transition ${activeInvestmentIndex === idx
                           ? "border-black bg-[#0faae6] text-white"
                           : "border-transparent bg-white text-black hover:border-black"
-                      }`}
+                        }`}
                     >
                       <span>{item.investment}</span>
                       <span className={item.reductionPct > 50 ? "text-yellow-300 font-black" : "text-gray-700"}>
@@ -1795,21 +1787,19 @@ ${optimization.selected_interventions.map((item, idx) => `  ${idx + 1}. ${item.t
             <div className="flex items-center gap-2 bg-[#ebd6d1] p-1.5 border-2 border-black">
               <button
                 onClick={() => setPrioritizationMode("legacy")}
-                className={`px-3 py-2 text-xs font-black uppercase tracking-wider transition rounded-none ${
-                  prioritizationMode === "legacy"
+                className={`px-3 py-2 text-xs font-black uppercase tracking-wider transition rounded-none ${prioritizationMode === "legacy"
                     ? "bg-black text-white border-2 border-black"
                     : "bg-white text-black border border-black hover:bg-gray-100"
-                }`}
+                  }`}
               >
                 View by Legacy CVSS (Technical Severity)
               </button>
               <button
                 onClick={() => setPrioritizationMode("financial")}
-                className={`px-3 py-2 text-xs font-black uppercase tracking-wider transition rounded-none flex items-center gap-1.5 ${
-                  prioritizationMode === "financial"
+                className={`px-3 py-2 text-xs font-black uppercase tracking-wider transition rounded-none flex items-center gap-1.5 ${prioritizationMode === "financial"
                     ? "bg-[#0faae6] text-white border-2 border-black"
                     : "bg-white text-black border border-black hover:bg-gray-100"
-                }`}
+                  }`}
               >
                 <Zap className="h-3.5 w-3.5" />
                 <span>View by CyberQuant Financial Impact</span>
@@ -1847,13 +1837,11 @@ ${optimization.selected_interventions.map((item, idx) => `  ${idx + 1}. ${item.t
           </div>
 
           {/* Mode Indicator Bar */}
-          <div className={`mt-4 flex flex-wrap items-center justify-between gap-2 p-2.5 border-2 border-black text-xs font-bold uppercase ${
-            prioritizationMode === 'legacy' ? 'bg-gray-100 text-gray-900' : 'bg-[#0faae6]/10 text-black'
-          }`}>
+          <div className={`mt-4 flex flex-wrap items-center justify-between gap-2 p-2.5 border-2 border-black text-xs font-bold uppercase ${prioritizationMode === 'legacy' ? 'bg-gray-100 text-gray-900' : 'bg-[#0faae6]/10 text-black'
+            }`}>
             <div className="flex items-center gap-2">
-              <span className={`px-2 py-0.5 border border-black text-white font-black ${
-                prioritizationMode === 'legacy' ? 'bg-black' : 'bg-[#0faae6]'
-              }`}>
+              <span className={`px-2 py-0.5 border border-black text-white font-black ${prioritizationMode === 'legacy' ? 'bg-black' : 'bg-[#0faae6]'
+                }`}>
                 {prioritizationMode === 'legacy' ? 'LEGACY AUDIT VIEW' : 'CYBERQUANT AI QUANTIFIED VIEW'}
               </span>
               <span>
@@ -1909,29 +1897,27 @@ ${optimization.selected_interventions.map((item, idx) => `  ${idx + 1}. ${item.t
                         <td className="py-3.5 px-3 text-center">
                           <div className="flex flex-col items-center">
                             <span
-                              className={`inline-block text-xs font-black px-2.5 py-1 rounded-none border border-black ${
-                                isLegacyMode
+                              className={`inline-block text-xs font-black px-2.5 py-1 rounded-none border border-black ${isLegacyMode
                                   ? isWasted
                                     ? "bg-gray-300 text-gray-800"
                                     : "bg-black text-white"
                                   : isElevated
-                                  ? "bg-[#f01c24] text-white"
-                                  : item.cyberquant_rank <= 2
-                                  ? "bg-[#2546c7] text-white"
-                                  : "bg-[#0faae6] text-white"
-                              }`}
+                                    ? "bg-[#f01c24] text-white"
+                                    : item.cyberquant_rank <= 2
+                                      ? "bg-[#2546c7] text-white"
+                                      : "bg-[#0faae6] text-white"
+                                }`}
                             >
                               #{isLegacyMode ? item.legacy_rank : item.cyberquant_rank}
                             </span>
                             {!isLegacyMode && (
                               <span
-                                className={`text-[9px] font-black uppercase mt-1 px-1 border ${
-                                  isElevated
+                                className={`text-[9px] font-black uppercase mt-1 px-1 border ${isElevated
                                     ? "text-red-700 bg-red-50 border-red-600"
                                     : isWasted
-                                    ? "text-gray-700 bg-gray-100 border-gray-400"
-                                    : "text-green-700 bg-green-50 border-green-600"
-                                }`}
+                                      ? "text-gray-700 bg-gray-100 border-gray-400"
+                                      : "text-green-700 bg-green-50 border-green-600"
+                                  }`}
                               >
                                 {item.rank_delta}
                               </span>
@@ -1960,13 +1946,12 @@ ${optimization.selected_interventions.map((item, idx) => `  ${idx + 1}. ${item.t
                         {/* CVSS Score */}
                         <td className="py-3.5 px-3 text-center">
                           <span
-                            className={`inline-block text-xs font-black px-2 py-0.5 border border-black ${
-                              item.cvss_score >= 8.5
+                            className={`inline-block text-xs font-black px-2 py-0.5 border border-black ${item.cvss_score >= 8.5
                                 ? "bg-[#2546c7] text-white"
                                 : item.cvss_score >= 7.0
-                                ? "bg-[#0faae6] text-white"
-                                : "bg-white text-black"
-                            }`}
+                                  ? "bg-[#0faae6] text-white"
+                                  : "bg-white text-black"
+                              }`}
                           >
                             {item.cvss_score.toFixed(1)}
                           </span>
@@ -1979,13 +1964,12 @@ ${optimization.selected_interventions.map((item, idx) => `  ${idx + 1}. ${item.t
 
                         {/* Financial Exposure (EAL) */}
                         <td className="py-3.5 px-3">
-                          <div className={`font-black text-sm ${
-                            !isLegacyMode && isElevated
+                          <div className={`font-black text-sm ${!isLegacyMode && isElevated
                               ? "text-[#f01c24] text-base"
                               : !isLegacyMode
-                              ? "text-[#0faae6]"
-                              : "text-black"
-                          }`}>
+                                ? "text-[#0faae6]"
+                                : "text-black"
+                            }`}>
                             {item.cyberquant_eal_formatted}
                           </div>
                           <div className="text-[10px] font-bold text-gray-600 uppercase">
@@ -1997,31 +1981,29 @@ ${optimization.selected_interventions.map((item, idx) => `  ${idx + 1}. ${item.t
                         <td className="py-3.5 px-3">
                           {isLegacyMode ? (
                             <span
-                              className={`inline-block text-xs font-black px-2.5 py-1 border ${
-                                isWasted
+                              className={`inline-block text-xs font-black px-2.5 py-1 border ${isWasted
                                   ? "bg-gray-200 text-gray-900 border-gray-600"
                                   : isElevated
-                                  ? "bg-red-100 text-red-800 border-red-600"
-                                  : "bg-white text-black border-black"
-                              }`}
+                                    ? "bg-red-100 text-red-800 border-red-600"
+                                    : "bg-white text-black border-black"
+                                }`}
                             >
                               {item.legacy_spend_status}
                             </span>
                           ) : (
                             <span
-                              className={`inline-block text-xs font-black px-2.5 py-1 border ${
-                                isElevated
+                              className={`inline-block text-xs font-black px-2.5 py-1 border ${isElevated
                                   ? "bg-[#f01c24] text-white border-black"
                                   : isWasted
-                                  ? "bg-green-100 text-green-900 border-green-700"
-                                  : "bg-[#0faae6] text-white border-black"
-                              }`}
+                                    ? "bg-green-100 text-green-900 border-green-700"
+                                    : "bg-[#0faae6] text-white border-black"
+                                }`}
                             >
                               {isElevated
                                 ? "⚡ ELEVATED TO #1 (MAX RISK)"
                                 : isWasted
-                                ? "₹15L REDIRECTED TO REVENUE"
-                                : "OPTIMAL CAPITAL FUNDED"}
+                                  ? "₹15L REDIRECTED TO REVENUE"
+                                  : "OPTIMAL CAPITAL FUNDED"}
                             </span>
                           )}
                         </td>
